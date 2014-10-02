@@ -25,5 +25,9 @@ Copy **CVZPChileanRUT.h** and **CVZPChileanRUT.m** to your project.
 
 ```
 
-** More Info**
+**More Info**
 > See *ValidateChileanRunTests.m* and the Example Project for Usage Info.
+
+## License
+MIT License, see LICENSE file
+
