@@ -36,8 +36,6 @@
 
 #pragma mark - Instance Properties
 
-@property (nonatomic) NSString * rut;
-
 #pragma mark - Instance Methods
 
 #pragma mark - Abstract Methods
