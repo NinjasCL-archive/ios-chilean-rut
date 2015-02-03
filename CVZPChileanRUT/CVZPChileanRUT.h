@@ -36,8 +36,6 @@
 
 #pragma mark - Instance Properties
 
-@property (nonatomic) NSString * rut;
-
 #pragma mark - Instance Methods
 
 #pragma mark - Abstract Methods
@@ -83,6 +81,16 @@
  * @return NSString Unformatted RUT
  */
 + (NSString *) removeFormat : (NSString *) rut;
+
+/*!
+ *    Removes any character that does not belongs to a RUT.
+ *    Valid characters are 0123546789kK.-
+ *
+ *    @param NSString with the rut
+ *
+ *    @return NSString with removed invalid characters
+ */
++ (NSString *) removeInvalidCharacters: (NSString *) rut;
 
 /*!
  * Get a Digit given an unformatted RUT String

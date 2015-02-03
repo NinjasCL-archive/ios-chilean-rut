@@ -71,7 +71,7 @@
     
     XCTAssertTrue((ruts.count > 0), @"Rut array cannot be empty");
     
-    XCTAssertTrue((ruts.count == quantity), @"Wrong Quantity Solicited %d Given %d", quantity, ruts.count);
+    XCTAssertTrue((ruts.count == quantity), @"Wrong Quantity Solicited %d Given %lu", quantity, (unsigned long)ruts.count);
     
     for (NSString * rut in ruts) {
       isValid = [CVZPChileanRUT isValidRUT:rut];
@@ -146,18 +146,30 @@
   XCTAssertEqualObjects(unformatted, @"123456789", @"Format remover does not remove dots,  dashes or spaces in %@", rut);
 }
 
+- (void) testThatRemovesInvalidChars {
+    
+    NSString * rut = @"1234jas.cmaK5/k-";
+    
+    NSString * test = [CVZPChileanRUT removeInvalidCharacters:rut];
+    
+    NSString * correct = @"1234.K5k-";
+    
+    XCTAssertEqualObjects(test, correct, @"Invalid chars should not be pressent. Given %@ Should Be %@ Result %@", rut, correct, test);
+    
+}
+
 #pragma mark - isValid Rut Test Methods
 - (void) testThatRutIsValid {
   
-  NSString * rut = @"214748364816";
+  NSString * rut = @"20265505K";
   
-  XCTAssertTrue([CVZPChileanRUT isValidRUT:rut], @"Rut %@ is not valid, should be", rut);
+  XCTAssertTrue([CVZPChileanRUT isValidRUT:rut], @"Rut %@ is not valid, it should be", rut);
   
 }
 
 - (void) testThatRutIsNotValid {
   
-  NSString * rut = @"214748364818";
+  NSString * rut = @"214748364816";
   
   XCTAssertFalse([CVZPChileanRUT isValidRUT:rut], @"Rut %@ is valid, should not", rut);
   

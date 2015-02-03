@@ -83,6 +83,16 @@
 + (NSString *) removeFormat : (NSString *) rut;
 
 /*!
+ *    Removes any character that does not belongs to a RUT.
+ *    Valid characters are 0123546789kK.-
+ *
+ *    @param NSString with the rut
+ *
+ *    @return NSString with removed invalid characters
+ */
++ (NSString *) removeInvalidCharacters: (NSString *) rut;
+
+/*!
  * Get a Digit given an unformatted RUT String
  * without digit
  * Example '12345678' => 9

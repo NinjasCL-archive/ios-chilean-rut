@@ -118,20 +118,20 @@ static BOOL _verbose = NO;
   }
   
   // Substring Closure
-  NSString * ( ^ substring ) (NSString *, int , int);
+  NSString * ( ^ substring ) (NSString *, NSInteger , NSInteger);
   
-  substring = ^(NSString * string, int from, int to) {
+  substring = ^(NSString * string, NSInteger from, NSInteger to) {
     
     NSString * digit = @"";
     NSMutableString * sub = [@"" mutableCopy];
     
-    for (int i = from; i < to; i++) {
+    for (NSInteger i = from; i < to; i++) {
       digit = [NSString stringWithFormat:@"%c", [string characterAtIndex:i]];
       [sub appendString:digit];
     }
     
     if (_verbose)
-      NSLog(@"Substring %@ From %d To %d Result %@ ", string, from, to, sub);
+      NSLog(@"Substring %@ From %ld To %ld Result %@ ", string, from, to, sub);
     
     return sub;
   };
@@ -164,7 +164,7 @@ static BOOL _verbose = NO;
   // the last 2 characters to the beginning of the string
   // this is needed so does not put a point
   // at the beginning of the string
-  for (int i = (rut.length - 2); i >= 0; i--) {
+  for (NSInteger i = (rut.length - 2); i >= 0; i--) {
     
     // Get a specific character
     // from end to the begining of the string
@@ -220,6 +220,32 @@ static BOOL _verbose = NO;
     NSLog(@"Removed Format %@", newRut);
   
   return [newRut copy];
+}
+
+/*!
+ *    Removes any character that does not belongs to a RUT.
+ *    Valid characters are 0123546789kK.-
+ *
+ *    @param NSString with the rut
+ *
+ *    @return NSString with removed invalid characters
+ */
++ (NSString *) removeInvalidCharacters:(NSString *)rut {
+    
+    // Strip unwanted chars
+    
+    NSError *error = nil;
+    
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^0123546789kK.-]+" options:NSRegularExpressionCaseInsensitive error:&error];
+    
+    NSString * newRut = [regex stringByReplacingMatchesInString:rut options:kNilOptions range:NSMakeRange(0, [rut length]) withTemplate:@""];
+    
+
+    if (_verbose) {
+        NSLog(@"Removed From %@ to %@", rut, newRut);
+    }
+    
+    return newRut;
 }
 
 /*!
@@ -292,7 +318,9 @@ static BOOL _verbose = NO;
   // Trim format
   rut = [[self class] removeFormat:rut];
   
-  
+  // Trim Invalid Chars
+  rut = [[self class] removeInvalidCharacters:rut];
+    
   // Check for digit validity
   // with a closure
   BOOL (^ hasValidDigits)(NSString *);
@@ -396,7 +424,7 @@ static BOOL _verbose = NO;
   NSString * correctDigit = [[self class] getDigit:rut];
   
   // compare
-  BOOL isValid = ([digit isEqualToString:correctDigit]);
+  BOOL isValid = ([[digit lowercaseString] isEqualToString:[correctDigit lowercaseString]]);
   
   if (_verbose)
     NSLog(@"Param Digit %@, Correct Digit %@, Digits are %@", digit, correctDigit, (isValid ? @"Equal" : @"Diferent"));
