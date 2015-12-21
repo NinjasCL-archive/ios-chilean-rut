@@ -26,7 +26,8 @@ Copy **CVZPChileanRUT.h** and **CVZPChileanRUT.m** to your project.
 ```
 
 **More Info**
-> See *ValidateChileanRunTests.m* and the Example Project for Usage Info.
+
+See [ValidateChileanRunTests.m](https://github.com/NinjasCL/ios-chilean-rut/blob/master/ValidateChileanRun/ValidateChileanRunTests/ValidateChileanRunTests.m) and the Example Project for Usage Info.
 
 ## License
 MIT License, see LICENSE file
