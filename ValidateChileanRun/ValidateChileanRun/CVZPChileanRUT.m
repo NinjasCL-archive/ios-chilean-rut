@@ -290,7 +290,7 @@ static BOOL _verbose = NO;
   newDigit = [NSString stringWithFormat:@"%d", digit];
   
   if (digit == 10) {
-      newDigit = @"k";
+      newDigit = @"K";
   }
   
   if (digit == 11) {
